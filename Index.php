@@ -98,7 +98,7 @@ include('cart.php');
 
     <!-- Footer -->
     <footer class="text-center py-4 bg-dark text-white mt-5">
-      <p class="mb-0">&copy; 2025 All rights reserved to <strong>Md Assadulla Al Galib</strong>.</p>
+      <p class="mb-0">&copy; 2025 All rights reserved to Md Assadulla Al Galib.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
