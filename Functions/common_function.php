@@ -32,13 +32,13 @@ function display_product_card($row) {
       </div>
     </div>";
 }
+
+// Calculate total price in cart
 function get_cart_total_price() {
-    global $con; // database connection
-    
+    global $con;
     $total_price = 0;
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $product_id => $quantity) {
-            // Fetch product price from database
             $query = "SELECT product_price FROM products WHERE product_id = ?";
             $stmt = mysqli_prepare($con, $query);
             mysqli_stmt_bind_param($stmt, "i", $product_id);
@@ -54,6 +54,20 @@ function get_cart_total_price() {
     }
     return number_format($total_price, 2);
 }
+
+// Update quantities in cart
+function update_cart_quantities($quantities) {
+    foreach ($quantities as $product_id => $quantity) {
+        $quantity = max(1, intval($quantity)); 
+        $_SESSION['cart'][$product_id] = $quantity;
+    }
+}
+
+// Remove a product from cart
+function remove_from_cart($product_id) {
+    unset($_SESSION['cart'][$product_id]);
+}
+
 // Fetch and display products
 function get_products() {
     global $con;
