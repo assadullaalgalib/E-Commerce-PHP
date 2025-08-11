@@ -1,8 +1,7 @@
 <?php
 session_start();
-include('../Includes/connect.php');  // Adjust path as per your folder structure
-include('../Functions/common_function.php'); // esc()
-
+include('Includes/connect.php');
+include('Functions/common_function.php');
 // Check if cart is empty
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "<script>alert('Your cart is empty. Please add products before checkout.'); window.location.href='cart_view.php';</script>";

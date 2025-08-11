@@ -4,41 +4,56 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fa;
+  padding-top: 70px; /* Space for fixed navbar */
 }
 
-
 /* ==================================== */
-/* Public Storefront Styles             */
+/* Navbar Styles                        */
 /* ==================================== */
-
-/* Navbar Enhancements */
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.85rem; /* Make overall navbar text smaller */
 }
 
-.navbar-brand, .nav-link {
+.navbar-brand {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.nav-link {
+  font-size: 0.85rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.navbar .btn {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.navbar .welcome-text {
   font-weight: 500;
-  transition: color 0.3s ease;
+  font-size: 0.85rem;
+  color: #ffc107;
 }
 
-.navbar-brand:hover, .nav-link:hover {
-  color: #c0c0c0 !important;
-}
-
-/* Hero Section */
+/* ==================================== */
+/* Hero Section                         */
+/* ==================================== */
 .bg-light {
   background-color: #ffffff !important;
   border-bottom: 1px solid #e9ecef;
 }
 
 .display-4 {
-  font-size: 3.5rem;
+  font-size: 2.5rem;
 }
 
-/* Product Cards */
+/* ==================================== */
+/* Product Cards                        */
+/* ==================================== */
 .card {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .card:hover {
@@ -58,11 +73,13 @@ body {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
-/* Sidebar */
+/* ==================================== */
+/* Sidebar                              */
+/* ==================================== */
 .sidebar .card-title {
   font-weight: 600;
   border-bottom: 2px solid #0d6efd;
@@ -71,6 +88,7 @@ body {
 }
 
 .list-unstyled a {
+  font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
@@ -78,11 +96,14 @@ body {
   color: #0d6efd !important;
 }
 
-/* Footer */
+/* ==================================== */
+/* Footer                               */
+/* ==================================== */
 footer {
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 0.85rem;
+  padding: 1rem 0;
 }
-
 
 /* ==================================== */
 /* Admin Dashboard Styles               */
@@ -103,7 +124,8 @@ footer {
   padding: 0.5rem 1rem;
 }
 
-.sidebar .nav-link:hover, .sidebar .nav-link.active {
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
   color: white;
   background-color: #495057;
   border-radius: 5px;

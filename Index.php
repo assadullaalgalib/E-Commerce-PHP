@@ -4,7 +4,6 @@ include('Includes/connect.php');
 include('Functions/common_function.php');
 include('cart.php');
 ?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,8 +20,16 @@ include('cart.php');
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <img src="images/logo.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top me-2" />
-          <a class="navbar-brand text-white fw-bold" href="index.php"> E-Commerce</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <a class="navbar-brand text-white fw-bold" href="index.php">E-Commerce</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
           </button>
 
@@ -30,18 +37,19 @@ include('cart.php');
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item"><a class="nav-link active" href="index.php">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="display_all_products.php">Product</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Registrations</a></li>
+              <li class="nav-item"><a class="nav-link" href="Users/register.php">Registrations</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
               <li class="nav-item">
                   <a class="nav-link" href="cart_view.php"><i class="fas fa-shopping-cart"></i> Cart</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link" href="cart_view.php">
-                  Total Price: ৳<?php echo get_cart_total_price(); ?>
-              </a>
-          </li>
+                  <a class="nav-link" href="cart_view.php">
+                      Total Price: ৳<?php echo get_cart_total_price(); ?>
+                  </a>
+              </li>
+            </ul>
 
-            <form class="d-flex" role="search" method="GET" action="index.php">
+            <form class="d-flex ms-3" role="search" method="GET" action="index.php">
               <input
                 class="form-control me-2"
                 name="search"
@@ -52,6 +60,26 @@ include('cart.php');
               />
               <button class="btn btn-outline-light" type="submit">Search</button>
             </form>
+
+            <!-- Right side of navbar: Welcome + Login/Logout -->
+            <ul class="navbar-nav mb-2 mb-lg-0 ms-3">
+              <li class="nav-item">
+                <span class="navbar-text text-white me-3">
+                  <?php
+                    if (isset($_SESSION['username'])) {
+                        echo "Welcome, " . htmlspecialchars($_SESSION['username']);
+                    } else {
+                        echo "Welcome Guest";
+                    }
+                  ?>
+                </span>
+              </li>
+              <?php if (isset($_SESSION['username'])): ?>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+              <?php else: ?>
+                <li class="nav-item"><a class="nav-link" href="Users/login.php">Login</a></li>
+              <?php endif; ?>
+            </ul>
           </div>
         </div>
       </nav>
@@ -62,10 +90,6 @@ include('cart.php');
       <div class="container text-center">
         <h1 class="display-4 text-dark fw-bold">Online Store</h1>
         <p class="lead text-secondary mt-3">Communication is at the heart of e-commerce and community.</p>
-        <div class="d-flex justify-content-center mt-4">
-          <a class="btn btn-primary btn-lg me-2" href="#">Welcome Guest</a>
-          <a class="btn btn-outline-secondary btn-lg" href="#">Login</a>
-        </div>
       </div>
     </div>
 
