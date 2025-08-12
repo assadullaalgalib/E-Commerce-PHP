@@ -40,12 +40,12 @@ include('cart.php');
               <li class="nav-item"><a class="nav-link" href="Users/register.php">Registrations</a></li>
               <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
               <li class="nav-item">
-                  <a class="nav-link" href="cart_view.php"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a class="nav-link" href="cart_view.php"><i class="fas fa-shopping-cart"></i> Cart</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="cart_view.php">
-                      Total Price: ৳<?php echo get_cart_total_price(); ?>
-                  </a>
+                <a class="nav-link" href="cart_view.php">
+                  Total Price: ৳<?php echo get_cart_total_price(); ?>
+                </a>
               </li>
             </ul>
 
@@ -64,23 +64,28 @@ include('cart.php');
             <!-- Right side of navbar: Welcome + Login/Logout -->
             <ul class="navbar-nav mb-2 mb-lg-0 ms-3">
               <li class="nav-item">
-                <span class="navbar-text text-white me-3">
-                  <?php
-                    if (isset($_SESSION['username'])) {
-                        echo "Welcome, " . htmlspecialchars($_SESSION['username']);
-                    } else {
-                        echo "Welcome Guest";
-                    }
-                  ?>
-                </span>
+                <?php if (isset($_SESSION['username'])): ?>
+                  <!-- Logged-in username clickable -->
+                  <a class="nav-link text-warning fw-bold" href="Users/my_account.php">
+                    Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>
+                  </a>
+                <?php else: ?>
+                  <!-- Guest -->
+                  <span class="navbar-text text-white me-3">Welcome Guest</span>
+                <?php endif; ?>
               </li>
+
               <?php if (isset($_SESSION['username'])): ?>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Logout</a></li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="logout.php">Logout</a>
+                </li>
               <?php else: ?>
-                <li class="nav-item"><a class="nav-link" href="Users/login.php">Login</a></li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="Users/login.php">Login</a>
+                </li>
               <?php endif; ?>
             </ul>
-          </div>
+          </div> <!-- END collapse -->
         </div>
       </nav>
     </div>
