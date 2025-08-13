@@ -128,16 +128,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <label>Contact
         <input type="text" name="contact" value="<?php echo htmlspecialchars($user['contact']); ?>">
     </label>
+<label>Profile Image</label>
+<?php
+$imagePath = "user_image/" . $user['user_image']; // point to user_image folder
 
-    <label>Profile Image</label>
-    <?php if (!empty($user['user_image']) && file_exists("../".$user['user_image'])): ?>
-        <img src="<?php echo htmlspecialchars($user['user_image']); ?>" alt="Profile Image" class="profile-img" />
-    <?php else: ?>
-        <p>No profile image uploaded.</p>
-    <?php endif; ?>
-    <input type="file" name="user_image" accept="image/*">
+if (!empty($user['user_image']) && file_exists($imagePath)) {
+    echo '<img src="' . htmlspecialchars($imagePath) . '" alt="Profile Image" class="profile-img" />';
+} else {
+    echo '<p>No profile image uploaded.</p>';
+}
+?>
+<input type="file" name="user_image" accept="image/*">
+<hr>
 
-    <hr>
 
     <label>Current Password (required to save changes)
         <input type="password" name="current_password" required>
