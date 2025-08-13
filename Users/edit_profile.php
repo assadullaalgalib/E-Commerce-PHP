@@ -152,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </label>
 
     <button type="submit">Update Profile</button>
+    <button type="button" onclick="window.location.href='index.php'">Cancel</button>
 </form>
 
 </body>
