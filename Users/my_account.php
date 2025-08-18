@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Prepare SQL statement with correct column names
+// Fetch user data
 $sql = "SELECT username, email, contact, user_image 
         FROM users 
         WHERE user_id = ?";
@@ -37,8 +37,13 @@ $stmt->close();
 <h2>My Profile</h2>
 
 <div class="card" style="width: 18rem;">
-    <img src="../User_Images/<?php echo htmlspecialchars($user['user_image']); ?>" 
-         class="card-img-top" alt="Profile Image">
+    <img src="<?php 
+        if (!empty($user['user_image']) && file_exists(__DIR__ . '/../Images/' . $user['user_image'])) {
+            echo '../Images/' . htmlspecialchars($user['user_image']);
+        } else {
+            echo 'https://via.placeholder.com/150'; // fallback image
+        }
+    ?>" class="card-img-top" alt="Profile Image">
     <div class="card-body">
         <h5 class="card-title"><?php echo htmlspecialchars($user['username']); ?></h5>
         <p class="card-text">

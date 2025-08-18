@@ -21,6 +21,7 @@ $result = mysqli_query($con, $query);
                 <tr>
                     <th>Brand ID</th>
                     <th>Brand Title</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,10 @@ $result = mysqli_query($con, $query);
                     echo "<tr>
                             <td>$id</td>
                             <td>$title</td>
+                            <td>
+                                <a href='edit_brand.php?id=$id' class='btn btn-sm btn-warning'>Edit</a>
+                                <a href='delete_brand.php?id=$id' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this brand?\");'>Delete</a>
+                            </td>
                           </tr>";
                 }
                 ?>

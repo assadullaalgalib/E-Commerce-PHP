@@ -13,13 +13,18 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     exit();
 }
 
-// Here you'd process payment info (card number, expiry, cvv) securely with payment gateway
-// For demo, we just simulate success
+$user_id = $_SESSION['user_id'];
 
-// After successful payment, clear cart
+// Loop through cart and insert into orders table
+foreach ($_SESSION['cart'] as $product_id => $quantity) {
+    // Insert into orders
+    $query = "INSERT INTO orders (user_id, product_id, quantity, order_date) 
+              VALUES ('$user_id', '$product_id', '$quantity', NOW())";
+    mysqli_query($con, $query) or die(mysqli_error($con));
+}
+
+// After successful order, clear cart
 unset($_SESSION['cart']);
-
-// Show success message
 ?>
 
 <!DOCTYPE html>
