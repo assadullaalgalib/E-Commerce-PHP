@@ -17,6 +17,7 @@ include('../Includes/connect.php');
         <th>Image 3</th>
         <th>Price</th>
         <th>Date</th>
+        <th>Total Sold</th>
         <th>Actions</th>
     </tr>
 
@@ -26,6 +27,8 @@ include('../Includes/connect.php');
     $sr_no = 1;
 
     while ($row = mysqli_fetch_assoc($result)) {
+        $product_id = $row['product_id'];
+
         echo "<tr>";
         echo "<td>" . $sr_no++ . "</td>";
         echo "<td>" . htmlspecialchars($row['product_title']) . "</td>";
@@ -52,9 +55,16 @@ include('../Includes/connect.php');
         echo "<td>" . htmlspecialchars($row['product_price']) . "</td>";
         echo "<td>" . htmlspecialchars($row['date']) . "</td>";
 
+        // ✅ Total Sold (assuming "orders_pending" table contains qty and product_id)
+        $sold_query = mysqli_query($con, "SELECT SUM(quantity) as total_sold FROM orders_pending WHERE product_id = $product_id");
+        $sold_row = mysqli_fetch_assoc($sold_query);
+        $total_sold = $sold_row['total_sold'] ?? 0;
+        echo "<td>" . (int)$total_sold . "</td>";
+
+        // Actions
         echo "<td>
-                <a href='edit_product.php?id=" . $row['product_id'] . "'>Edit</a> |
-                <a href='delete_product.php?id=" . $row['product_id'] . "' onclick='return confirm(\"Are you sure?\");'>Delete</a>
+                <a href='edit_product.php?id=$product_id'>Edit</a> |
+                <a href='delete_product.php?id=$product_id' onclick='return confirm(\"Are you sure?\");'>Delete</a>
               </td>";
         echo "</tr>";
     }
