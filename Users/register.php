@@ -8,6 +8,7 @@ if (isset($_POST['register'])) {
     $password   = $_POST['password'];
     $cpassword  = $_POST['confirm_password'];
     $contact    = trim($_POST['contact']);
+    $role       = $_POST['role']; // NEW: role selection (customer/admin)
     $user_image = $_FILES['user_image']['name'];
     $tmp_image  = $_FILES['user_image']['tmp_name'];
 
@@ -53,9 +54,9 @@ if (isset($_POST['register'])) {
                 // Hash password
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                // Insert into database
-                $stmt = mysqli_prepare($con, "INSERT INTO users (username, email, contact, user_image, password_hash) VALUES (?, ?, ?, ?, ?)");
-                mysqli_stmt_bind_param($stmt, "sssss", $username, $email, $contact, $user_image, $hashed_password);
+                // Insert into database with role
+                $stmt = mysqli_prepare($con, "INSERT INTO users (username, email, contact, user_image, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)");
+                mysqli_stmt_bind_param($stmt, "ssssss", $username, $email, $contact, $user_image, $hashed_password, $role);
                 $run = mysqli_stmt_execute($stmt);
 
                 if ($run) {
@@ -100,6 +101,13 @@ if (isset($_POST['register'])) {
         <div class="mb-3">
             <label class="form-label">Contact Number</label>
             <input type="text" name="contact" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">User Role</label>
+            <select name="role" class="form-control" required>
+                <option value="customer">Customer</option>
+                <option value="admin">Admin</option>
+            </select>
         </div>
         <div class="mb-3">
             <label class="form-label">User Image (optional)</label>
