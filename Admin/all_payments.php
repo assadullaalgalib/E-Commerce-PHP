@@ -1,14 +1,13 @@
 <?php
-// session_start();
+session_start();
 include('../Includes/connect.php');
 
-// // Optional: Check if admin is logged in
-// if (!isset($_SESSION['admin_id'])) {
-//     header('Location: login.php');
-//     exit();
-// }
-// ?>
-
+// ✅ Check if logged in and role = admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: ../users/login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
