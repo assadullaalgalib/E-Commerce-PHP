@@ -33,7 +33,7 @@ $result = mysqli_query($con, $query);
                             <td>$id</td>
                             <td>$title</td>
                             <td>
-                                <a href='edit.php?id=$id' class='btn btn-sm btn-warning'>Edit</a>
+                                <a href='edit.php?id=$id&type=brand' class='btn btn-sm btn-warning'>Edit</a>
                                 <a href='delete.php?id=$id&type=brand' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this brand?\");'>Delete</a>
                             </td>
                           </tr>";
