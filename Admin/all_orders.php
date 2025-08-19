@@ -2,7 +2,7 @@
 session_start();
 include('../Includes/connect.php');
 
-// ✅ Check if logged in and role = admin
+//  Check if logged in and role = admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: ../users/login.php');
     exit();
@@ -51,8 +51,29 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                   </tr>";
         }
         ?>
-        </tbody>
+    </tbody>
     </table>
-</div>
-</body>
-</html>
+    <style>
+    a.button {
+        padding: 8px 16px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+    a.back { background: #007bff; }
+    a.back:hover { background: #0056b3; }
+
+    a.home { background: #28a745; }
+    a.home:hover { background: #1e7e34; }
+    </style>
+
+    <div style="margin-top:15px;">
+        <a href="javascript:history.back()" class="button back">⬅ Back</a>
+        <a href="index.php" class="button home">Home</a>
+    </div>
+
+    </div>
+    </body>
+    </html>
+
