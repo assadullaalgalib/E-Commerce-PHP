@@ -2,12 +2,12 @@
 //session_start();
 include('../Includes/connect.php');
 
-// // Check if admin is logged in (optional)
-// if (!isset($_SESSION['admin_id'])) {
-//     header('Location: login.php');
-//     exit();
-// }
-// ?>
+//Check if admin is logged in (optional)
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: ../users/login.php');
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
