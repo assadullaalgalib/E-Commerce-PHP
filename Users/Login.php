@@ -6,21 +6,29 @@ if (isset($_POST['login'])) {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Prepare SQL statement - fetch username too
-    $sql = "SELECT user_id, username, password_hash FROM users WHERE email = ?";
+    // Fetch role also
+    $sql = "SELECT user_id, username, password_hash, role FROM users WHERE email = ?";
     $stmt = mysqli_prepare($con, $sql);
     if ($stmt) {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $user_id, $username, $password_hash);
+        mysqli_stmt_bind_result($stmt, $user_id, $username, $password_hash, $role);
+
         if (mysqli_stmt_fetch($stmt)) {
             // User found, verify password
             if (password_verify($password, $password_hash)) {
-                // Password correct, set session and redirect
+                // Password correct, set session
                 $_SESSION['user_id'] = $user_id;
-                $_SESSION['username'] = $username;  // <-- Set username here
+                $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
-                header("Location: ../index.php"); // Redirect to homepage or dashboard
+                $_SESSION['role'] = $role;
+
+                // Redirect based on role
+                if ($role === 'admin') {
+                    header("Location: ../Admin/index.php"); // Admin dashboard
+                } else {
+                    header("Location: ../index.php"); // Customer home
+                }
                 exit();
             } else {
                 $error = "Invalid email or password.";
