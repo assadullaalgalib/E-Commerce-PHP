@@ -33,8 +33,8 @@ $result = mysqli_query($con, $query);
                             <td>$id</td>
                             <td>$title</td>
                             <td>
-                                <a href='edit_category.php?id=$id' class='btn btn-sm btn-primary'>Edit</a>
-                                <a href='delete_category.php?id=$id' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this category?\");'>Delete</a>
+                                <a href='edit.php?id=$id&type=category' class='btn btn-sm btn-primary'>Edit</a>
+                                <a href='delete.php?id=$id&type=category' class='btn btn-sm btn-danger' onclick='return confirm(\"Are you sure you want to delete this category?\");'>Delete</a>
                             </td>
                           </tr>";
                 }

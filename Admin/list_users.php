@@ -57,8 +57,8 @@ include('../Includes/connect.php');
                     <td>{$row['email']}</td>
                     <td>{$row['contact']}</td>
                     <td>
-                        <a href='edit_user.php?id={$row['user_id']}' class='btn btn-primary btn-sm'>Edit</a>
-                        <a href='delete_user.php?id={$row['user_id']}' onclick='return confirm(\"Are you sure you want to delete this user?\");' class='btn btn-danger btn-sm'>Delete</a>
+                        <a href='edit.php?id={$row['user_id']}&type=user' class='btn btn-primary btn-sm'>Edit</a>
+                        <a href='delete.php?id={$row['user_id']}&type=user' onclick='return confirm(\"Are you sure you want to delete this user?\");' class='btn btn-danger btn-sm'>Delete</a>
                     </td>
                   </tr>";
         }
