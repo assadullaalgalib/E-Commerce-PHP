@@ -1,0 +1,21 @@
+/* Fixed Navbar */
+.navbar { position: fixed; top: 0; width: 100%; z-index: 1030; }
+
+/* Push content below navbar */
+body { padding-top: 70px; }
+
+/* Sticky Sidebar */
+.sidebar { position: sticky; top: 80px; }
+
+/* Small product cards */
+.card-product { width: 14rem; margin: 0.5rem auto; }
+.card-product img { height: 120px; object-fit: cover; }
+.card-product .card-title { font-size: 0.9rem; }
+.card-product .card-text { font-size: 0.8rem; }
+.card-product .btn { font-size: 0.75rem; padding: 2px; }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sidebar { position: relative; top: 0; }
+    .card-product { width: 100%; }
+}
