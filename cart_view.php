@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('Includes/connect.php');
-include('Functions/common_function.php'); // <-- include your common functions
+include('Functions/common_function.php'); // common functions
 
 // Handle cart actions
 if (isset($_POST['remove'])) {
@@ -22,66 +22,77 @@ if (isset($_POST['update_qty'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shopping Cart</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-5">
-  <h2 class="mb-4 text-center">🛒 Your Cart</h2>
+    <h2 class="mb-4 text-center">🛒 Your Cart</h2>
 
-  <?php
-  if (empty($_SESSION['cart'])) {
-      echo "<h4 class='text-center'>Your cart is empty.</h4>";
-  } else {
-      echo "<table class='table table-bordered text-center'>";
-      echo "<thead class='table-dark'>
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-              </tr>
-            </thead><tbody>";
+    <?php if (empty($_SESSION['cart'])): ?>
+        <h4 class='text-center'>Your cart is empty.</h4>
+        <div class='text-center mt-4'>
+            <a href='index.php' class='btn btn-primary btn-lg'>Back to Home</a>
+        </div>
+    <?php else: ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $total = 0;
+                    foreach ($_SESSION['cart'] as $product_id => $qty):
+                        $result = mysqli_query($con, "SELECT * FROM products WHERE product_id = $product_id");
+                        if ($row = mysqli_fetch_assoc($result)):
+                            $title = esc($row['product_title']);
+                            $price = number_format($row['product_price'], 2);
+                            $subtotal = $row['product_price'] * $qty;
+                            $total += $subtotal;
+                    ?>
+                    <tr>
+                        <td><?= $title ?></td>
+                        <td>৳<?= $price ?></td>
+                        <td>
+                            <form method="post" class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                                <input type="hidden" name="product_id" value="<?= $product_id ?>">
+                                <input type="number" name="qty" value="<?= $qty ?>" min="1" class="form-control w-50 mx-auto mx-sm-0">
+                                <button type="submit" name="update_qty" class="btn btn-primary btn-sm mt-2 mt-sm-0">Update</button>
+                                <button type="submit" name="remove" class="btn btn-danger btn-sm mt-2 mt-sm-0">Remove</button>
+                            </form>
+                        </td>
+                        <td>৳<?= number_format($subtotal, 2) ?></td>
+                        <td>
+                            <a href="product_details.php?id=<?= $product_id ?>" class="btn btn-info btn-sm mb-2 mb-sm-0">View</a>
+                        </td>
+                    </tr>
+                    <?php
+                        endif;
+                    endforeach;
+                    ?>
+                </tbody>
+            </table>
+        </div>
 
-      $total = 0;
-      foreach ($_SESSION['cart'] as $product_id => $qty) {
-          $result = mysqli_query($con, "SELECT * FROM products WHERE product_id = $product_id");
+        <div class="text-end me-3">
+            <h4>Total: ৳<?= number_format($total, 2) ?></h4>
+        </div>
 
-          if ($row = mysqli_fetch_assoc($result)) {
-              $title = esc($row['product_title']); // Using esc() from common_function.php
-              $price = number_format($row['product_price'], 2);
-              $subtotal = $row['product_price'] * $qty;
-              $total += $subtotal;
-
-              echo "<tr>
-                      <td>{$title}</td>
-                      <td>৳{$price}</td>
-                      <td>
-                        <input type='number' value='{$qty}' min='1' form='form{$product_id}' name='qty' class='form-control w-50 mx-auto'>
-                      </td>
-                      <td>৳" . number_format($subtotal, 2) . "</td>
-                      <td>
-                        <form method='post' id='form{$product_id}' class='d-flex justify-content-center gap-2'>
-                          <input type='hidden' name='product_id' value='{$product_id}'>
-                          <button type='submit' name='update_qty' class='btn btn-primary btn-sm'>Update</button>
-                          <button type='submit' name='remove' class='btn btn-danger btn-sm'>Remove</button>
-                        </form>
-                      </td>
-                    </tr>";
-          }
-      }
-
-      echo "</tbody></table>";
-      echo "<div class='text-end me-3'><h4>Total: ৳" . number_format($total, 2) . "</h4></div>";
-      echo "<div class='text-center mt-4'>
-              <a href='display_all_products.php' class='btn btn-secondary'>Continue Shopping</a>
-              <a href='checkout.php' class='btn btn-success'>Checkout</a>
-            </div>";
-  }
-  ?>
+        <div class="text-center mt-4 d-flex flex-column flex-sm-row justify-content-center gap-2">
+            <a href="display_all_products.php" class="btn btn-primary">Continue Shopping</a>
+            <a href="checkout.php" class="btn btn-success">Checkout</a>
+            <a href="index.php" class="btn btn-secondary btn-lg mt-2 mt-sm-0">Back to Home</a>
+        </div>
+    <?php endif; ?>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
