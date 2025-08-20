@@ -167,10 +167,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="d-flex justify-content-between">
               <button type="submit" class="btn btn-primary">Update Profile</button>
               <a href="my_account.php" class="btn btn-secondary">Cancel</a>
-
-                <div class="text-center mt-3">
-                    <a href="javascript:history.back()" class="btn btn-primary">Back</a>
-                </div>
             </div>
             </div>
 

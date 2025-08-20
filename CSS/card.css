@@ -6,7 +6,32 @@ body { padding-top: 70px; }
 
 /* Sticky Sidebar */
 .sidebar { position: sticky; top: 80px; }
+/* Smaller product cards */
+.card {
+    max-height: 350px; /* limit overall card height */
+    display: flex;
+    flex-direction: column;
+}
 
+.card-img-top {
+    height: 150px; /* smaller image */
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+    flex: 1; /* allow card body to fill remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    font-size: 0.75rem; /* slightly smaller description */
+    overflow: hidden;
+    display: -webkit-box;
+   /* show only 2 lines */
+    -webkit-box-orient: vertical;
+}
 /* Small product cards */
 .card-product { width: 14rem; margin: 0.5rem auto; }
 .card-product img { height: 120px; object-fit: cover; }
