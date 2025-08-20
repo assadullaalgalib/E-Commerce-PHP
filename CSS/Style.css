@@ -1,0 +1,215 @@
+/* style.css */
+
+/* GENERAL STYLES */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+/* NAVBAR */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107;
+}
+
+/* HERO SECTION */
+.bg-light {
+    background: linear-gradient(to right, #ffffff, #e9ecef);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.bg-light h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.bg-light p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+/* SIDEBAR */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.card h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card ul li {
+    padding: 8px 0;
+}
+
+.card ul li a {
+    color: #343a40;
+    transition: color 0.3s ease;
+}
+
+.card ul li a:hover {
+    color: #007bff;
+}
+
+/* PRODUCT CARDS - SUPER COMPACT */
+.card-product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 6px;
+    margin-bottom: 15px;
+    height: 250px; /* fixed height for uniformity */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-product:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.card-product img.card-img-top {
+    width: 100%;
+    height: 100px; /* compact image */
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.card-product .card-body {
+    padding: 5px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-product .card-title {
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+    line-height: 1.1;
+    font-weight: 600;
+}
+
+.card-product .card-text {
+    font-size: 0.7rem;
+    color: #6c757d;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* max 1 line */
+    -webkit-box-orient: vertical;
+    margin-bottom: 3px;
+}
+
+.card-product .fw-bold {
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.card-product .d-flex {
+    gap: 3px;
+}
+
+.card-product .btn {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+}
+
+/* BUTTONS */
+.btn-primary {
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* RESPONSIVE STYLES */
+@media (max-width: 992px) {
+    .col-md-2 {
+        display: none; /* hide sidebar on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-light h1 {
+        font-size: 2rem;
+    }
+    .bg-light p {
+        font-size: 1rem;
+    }
+
+    .card-product {
+        height: 220px;
+    }
+    .card-product img.card-img-top {
+        height: 90px;
+    }
+    .card-product .card-title {
+        font-size: 0.8rem;
+    }
+    .card-product .card-text {
+        font-size: 0.65rem;
+    }
+    .card-product .fw-bold {
+        font-size: 0.75rem;
+    }
+    .card-product .btn {
+        font-size: 0.65rem;
+        padding: 2px 4px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-nav .nav-link {
+        font-size: 0.9rem;
+    }
+    .card-product {
+        height: 200px;
+    }
+    .card-product img.card-img-top {
+        height: 80px;
+    }
+}

@@ -17,21 +17,22 @@ function display_product_card($row) {
     $image_path = "images/$product_image";
 
     echo "
-    <div class='col-lg-4 col-md-6 mb-4'>
-      <div class='card h-100 shadow-sm border-0'>
-        <img src='$image_path' class='card-img-top' alt='$product_title' />
-        <div class='card-body d-flex flex-column'>
-          <h5 class='card-title text-dark fw-bold'>$product_title</h5>
-          <p class='card-text text-secondary'>$product_description...</p>
-          <p class='fw-bold mt-auto text-dark'>Price: ৳$product_price</p>
-          <div class='d-flex justify-content-between'>
-            <a href='cart.php?add=$product_id' class='btn btn-primary text-white'>Add to cart</a>
-            <a href='product_details.php?id=$product_id' class='btn btn-outline-secondary'>View More</a>
-          </div>
+        <div class='col-lg-4 col-md-6 mb-4'>
+        <div class='card card-product shadow-sm border-0'>
+            <img src='$image_path' class='card-img-top' alt='$product_title' />
+            <div class='card-body d-flex flex-column'>
+            <h5 class='card-title text-dark fw-bold'>$product_title</h5>
+            <p class='card-text text-secondary'>$product_description...</p>
+            <p class='fw-bold mt-auto text-dark'>Price: ৳$product_price</p>
+            <div class='d-flex justify-content-between'>
+                <a href='cart.php?add=$product_id' class='btn btn-primary text-white btn-sm'>Add to cart</a>
+                <a href='product_details.php?id=$product_id' class='btn btn-outline-secondary btn-sm'>View More</a>
+            </div>
+            </div>
         </div>
-      </div>
-    </div>";
-}
+        </div>";
+            
+        }
 
 // Calculate total price in cart
 function get_cart_total_price() {
