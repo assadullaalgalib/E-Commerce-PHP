@@ -1,0 +1,112 @@
+/* auth.css */
+
+/* General body styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f4f3f6, #e6e4e4);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for auth cards */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Card styles */
+.auth-card {
+    background-color: #ffffff;
+    padding: 30px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for card */
+.auth-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Card heading */
+.auth-card h2 {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Form elements */
+.auth-card .form-control {
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus state */
+.auth-card .form-control:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.5);
+    outline: none;
+}
+
+/* Buttons */
+.auth-card .btn {
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.auth-card .btn:hover {
+    background: #e8e8ea;
+    transform: translateY(-2px);
+}
+
+/* Alert styles */
+.auth-card .alert {
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+/* Links */
+.auth-card a {
+    color: #034dc4;
+    text-decoration: none;
+}
+
+.auth-card a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .auth-card {
+        padding: 25px 15px;
+        margin: 10px;
+    }
+
+    .auth-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-card .btn {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .auth-card .form-control {
+        font-size: 0.95rem;
+        padding: 8px 10px;
+    }
+}

@@ -89,7 +89,7 @@ if ($type === "product") {
         $stmt->bind_param("sssissdi", $title, $description, $keywords, $category_id, $brand_id, $image1, $price, $id);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Product updated'); window.location.href='view_products.php';</script>";
+            echo "<script>alert('Product updated'); window.location.href='view_product.php';</script>";
             exit();
         }
     }
@@ -124,7 +124,7 @@ if ($type === "user") {
         $stmt = $con->prepare("UPDATE users SET username=?, email=?, contact=?, user_image=? WHERE user_id=?");
         $stmt->bind_param("ssssi", $username, $email, $contact, $image_path, $id);
         if ($stmt->execute()) {
-            echo "<script>alert('User updated'); window.location.href='all_users.php';</script>";
+            echo "<script>alert('User updated'); window.location.href='list_users.php';</script>";
             exit();
         }
     }
@@ -133,52 +133,115 @@ if ($type === "user") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container mt-5">
 
 <?php if ($type === "brand") { ?>
-  <h2>Edit Brand</h2>
-  <form method="POST">
-    <input type="text" name="brand_title" class="form-control mb-3" value="<?= htmlspecialchars($brand['brand_title']); ?>">
-    <button type="submit" name="update_brand" class="btn btn-success">Update Brand</button>
-  </form>
+    <h2 class="mb-4">Edit Brand</h2>
+    <form method="POST" class="w-50 mx-auto">
+        <div class="mb-3">
+            <label class="form-label">Brand Title:</label>
+            <input type="text" name="brand_title" class="form-control" value="<?= htmlspecialchars($brand['brand_title']); ?>" required>
+        </div>
+        <button type="submit" name="update_brand" class="btn btn-success">Update Brand</button>
+        <a href="view_brands.php" class="btn btn-secondary">Cancel</a>
+    </form>
 
 <?php } elseif ($type === "category") { ?>
-  <h2>Edit Category</h2>
-  <form method="POST">
-    <input type="text" name="category_title" class="form-control mb-3" value="<?= htmlspecialchars($category['category_title']); ?>">
-    <button type="submit" name="update_category" class="btn btn-success">Update Category</button>
-  </form>
+    <h2 class="mb-4">Edit Category</h2>
+    <form method="POST" class="w-50 mx-auto">
+        <div class="mb-3">
+            <label class="form-label">Category Title:</label>
+            <input type="text" name="category_title" class="form-control" value="<?= htmlspecialchars($category['category_title']); ?>" required>
+        </div>
+        <button type="submit" name="update_category" class="btn btn-success">Update Category</button>
+        <a href="view_categories.php" class="btn btn-secondary">Cancel</a>
+    </form>
 
 <?php } elseif ($type === "product") { ?>
-  <h2>Edit Product</h2>
-  <form method="POST" enctype="multipart/form-data">
-    <input type="text" name="product_title" class="form-control mb-2" value="<?= $product['product_title'] ?>">
-    <textarea name="product_description" class="form-control mb-2"><?= $product['product_description'] ?></textarea>
-    <input type="text" name="product_keywords" class="form-control mb-2" value="<?= $product['product_keywords'] ?>">
-    <input type="number" name="category_id" class="form-control mb-2" value="<?= $product['category_id'] ?>">
-    <input type="number" name="brand_id" class="form-control mb-2" value="<?= $product['brand_id'] ?>">
-    <input type="text" name="product_price" class="form-control mb-2" value="<?= $product['product_price'] ?>">
-    <input type="file" name="product_image1" class="form-control mb-2">
-    <img src="../images/<?= $product['product_image1'] ?>" width="80"><br>
-    <button type="submit" name="update_product" class="btn btn-success">Update Product</button>
-  </form>
+    <h2 class="mb-4">Edit Product</h2>
+    <form method="POST" enctype="multipart/form-data" class="w-50 mx-auto">
+        <!-- Image first -->
+        <?php if (!empty($product['product_image1'])): ?>
+            <div class="mb-3 text-center">
+                <img src="../images/<?= $product['product_image1']; ?>" class="img-thumbnail" width="150">
+            </div>
+        <?php endif; ?>
+        <div class="mb-3">
+            <label class="form-label">Upload New Image:</label>
+            <input type="file" name="product_image1" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Title:</label>
+            <input type="text" name="product_title" class="form-control" value="<?= htmlspecialchars($product['product_title']); ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description:</label>
+            <textarea name="product_description" class="form-control"><?= htmlspecialchars($product['product_description']); ?></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Keywords:</label>
+            <input type="text" name="product_keywords" class="form-control" value="<?= htmlspecialchars($product['product_keywords']); ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Category ID:</label>
+            <input type="number" name="category_id" class="form-control" value="<?= $product['category_id']; ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Brand ID:</label>
+            <input type="number" name="brand_id" class="form-control" value="<?= $product['brand_id']; ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Price:</label>
+            <input type="text" name="product_price" class="form-control" value="<?= $product['product_price']; ?>">
+        </div>
+
+        <button type="submit" name="update_product" class="btn btn-success">Update Product</button>
+        <a href="View_product.php" class="btn btn-secondary">Cancel</a>
+    </form>
 
 <?php } elseif ($type === "user") { ?>
-  <h2>Edit User</h2>
-  <form method="POST" enctype="multipart/form-data">
-    <input type="text" name="username" class="form-control mb-2" value="<?= $user['username'] ?>">
-    <input type="email" name="email" class="form-control mb-2" value="<?= $user['email'] ?>">
-    <input type="text" name="contact" class="form-control mb-2" value="<?= $user['contact'] ?>">
-    <input type="file" name="user_image" class="form-control mb-2">
-    <?php if (!empty($user['user_image'])): ?>
-      <img src="../Images/<?= $user['user_image'] ?>" width="100">
-    <?php endif; ?>
-    <button type="submit" class="btn btn-success">Update User</button>
-  </form>
+    <h2 class="mb-4">Edit User</h2>
+    <form method="POST" enctype="multipart/form-data" class="w-50 mx-auto">
+        <!-- Image first -->
+        <?php if (!empty($user['user_image'])): ?>
+            <div class="mb-3 text-center">
+                <img src="../Images/<?= $user['user_image']; ?>" class="img-thumbnail" width="150">
+            </div>
+        <?php endif; ?>
+        <div class="mb-3">
+            <label class="form-label">Upload New Image:</label>
+            <input type="file" name="user_image" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Username:</label>
+            <input type="text" name="username" class="form-control" value="<?= htmlspecialchars($user['username']); ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']); ?>">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contact:</label>
+            <input type="text" name="contact" class="form-control" value="<?= htmlspecialchars($user['contact']); ?>">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update User</button>
+        <a href="all_users.php" class="btn btn-secondary">Cancel</a>
+    </form>
 <?php } ?>
 
 </body>

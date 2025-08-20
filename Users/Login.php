@@ -42,38 +42,39 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>User Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../CSS/auth.css">
 </head>
 <body>
-<div class="container mt-5" style="max-width: 400px;">
-    <h2 class="mb-4 text-center">Login</h2>
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="text-center mb-4">Login</h2>
 
-    <?php if (!empty($error)): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-    <?php endif; ?>
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
 
-    <form method="POST" action="">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" name="email" id="email" class="form-control" required autofocus />
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" id="password" class="form-control" required />
-        </div>
-        <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
-    </form>
+        <form method="POST" action="">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" name="email" id="email" class="form-control" required autofocus />
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required />
+            </div>
+            <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
+        </form>
 
-    <p class="mt-3 text-center">
-        Don't have an account? <a href="register.php">Register here</a>.
-    </p>
+        <p class="mt-3 text-center">
+            Don't have an account? <a href="register.php">Register here</a>.
+        </p>
+    </div>
 </div>
 </body>
 </html>

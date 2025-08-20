@@ -63,7 +63,7 @@ include('../Includes/connect.php');
 
         // Actions
         echo "<td>
-                <a href='edit.php?type=product&id=$product_id'>Edit</a>
+                <a href='edit.php?id=$product_id&type=product'>Edit</a>
                 <a href='delete.php?id=$product_id&type=product' onclick='return confirm(\"Are you sure?\");'>Delete</a>
               </td>";
         echo "</tr>";
