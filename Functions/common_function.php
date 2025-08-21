@@ -141,4 +141,21 @@ function get_categories() {
         echo "<li class='text-muted'>No categories available</li>";
     }
 }
-?>
+if (!function_exists('get_products')) {
+    function get_products() {
+        global $conn; 
+        $sql = "SELECT * FROM products"; 
+        $result = mysqli_query($conn, $sql);
+
+        if (!$result) {
+            die("Query Failed: " . mysqli_error($conn));
+        }
+
+        $products = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+}
+

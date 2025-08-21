@@ -8,7 +8,6 @@ if (isset($_POST['insert_category'])) {
     if (empty($category_title)) {
         $error = "Category title cannot be empty.";
     } else {
-        // Prepared statement to prevent SQL injection
         $select_query = "SELECT * FROM categories WHERE category_title = ?";
         $stmt = mysqli_prepare($con, $select_query);
         mysqli_stmt_bind_param($stmt, "s", $category_title);
@@ -45,39 +44,43 @@ if (isset($_GET['msg']) && $_GET['msg'] === 'success') {
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Insert Category</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="bg-light">
-    <div class="container mt-5" style="max-width: 600px;">
-        <div class="card shadow-sm">
-            <div class="card-header bg-info text-white">
-                <h3 class="mb-0">Insert New Category</h3>
-            </div>
-            <div class="card-body">
-                <?php if (!empty($error)) : ?>
-                    <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
-                <?php endif; ?>
-                <?php if (!empty($msg)) : ?>
-                    <div class="alert alert-success"><?php echo htmlspecialchars($msg); ?></div>
-                <?php endif; ?>
 
-                <form action="insert_category.php" method="post" novalidate>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-info text-white" id="basic-addon1">
-                            <i class="fa-solid fa-receipt"></i>
-                        </span>
-                        <input type="text" name="cat_title" class="form-control" placeholder="Enter Category Title" aria-label="Category Title" aria-describedby="basic-addon1" required>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <input type="submit" name="insert_category" class="btn btn-info text-white" value="Insert Category" />
-                        <a href="index.php" class="btn btn-secondary ms-3">Back to Home</a>
-                    </div>
-                </form>
-            </div>
+<div class="container my-5" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h3 class="mb-0"><i class="fas fa-receipt me-2"></i>Insert New Category</h3>
+        </div>
+        <div class="card-body">
+
+            <?php if (!empty($error)) : ?>
+                <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+            <?php endif; ?>
+
+            <?php if (!empty($msg)) : ?>
+                <div class="alert alert-success"><?php echo htmlspecialchars($msg); ?></div>
+            <?php endif; ?>
+
+            <form action="insert_category.php" method="post" novalidate>
+                <div class="mb-3">
+                    <label for="cat_title" class="form-label">Category Title</label>
+                    <input type="text" id="cat_title" name="cat_title" class="form-control" placeholder="Enter Category Title" required>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" name="insert_category" class="btn btn-info me-3">Insert Category</button>
+                    <a href="index.php" class="btn btn-secondary">Back to Home</a>
+                </div>
+            </form>
+
         </div>
     </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>

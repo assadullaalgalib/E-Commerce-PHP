@@ -12,55 +12,68 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>All Payments</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">All Payments</h2>
-    
-    <table class="table table-bordered table-hover text-center">
-        <thead class="table-dark">
-            <tr>
-                <th>Order ID</th>
-                <th>Customer Name</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Order Date</th>
-                <th>Total Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        // Fetch all orders with user and product details
-        $query = "
-            SELECT o.order_id, u.username, p.product_title, o.quantity, o.order_date, p.product_price
-            FROM orders o
-            JOIN users u ON o.user_id = u.user_id
-            JOIN products p ON o.product_id = p.product_id
-            ORDER BY o.order_date DESC
-        ";
-        $result = mysqli_query($con, $query);
+<body class="bg-light">
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            $total_price = $row['product_price'] * $row['quantity'];
-            echo "<tr>
-                    <td>{$row['order_id']}</td>
-                    <td>{$row['username']}</td>
-                    <td>{$row['product_title']}</td>
-                    <td>{$row['quantity']}</td>
-                    <td>{$row['order_date']}</td>
-                    <td>৳{$total_price}</td>
-                    <td>
-                        <a href='delete_order.php?id={$row['order_id']}' onclick='return confirm(\"Are you sure you want to delete this order?\");' class='btn btn-danger btn-sm'>Delete</a>
-                    </td>
-                  </tr>";
-        }
-        ?>
-        </tbody>
-    </table>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary">All Payments</h2>
 
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Order Date</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $query = "
+                SELECT o.order_id, u.username, p.product_title, o.quantity, o.order_date, p.product_price
+                FROM orders o
+                JOIN users u ON o.user_id = u.user_id
+                JOIN products p ON o.product_id = p.product_id
+                ORDER BY o.order_date DESC
+            ";
+            $result = mysqli_query($con, $query);
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $total_price = $row['product_price'] * $row['quantity'];
+                echo "<tr>
+                        <td>{$row['order_id']}</td>
+                        <td>{$row['username']}</td>
+                        <td>{$row['product_title']}</td>
+                        <td>{$row['quantity']}</td>
+                        <td>{$row['order_date']}</td>
+                        <td>৳{$total_price}</td>
+                        <td>
+                            <a href='delete_order.php?id={$row['order_id']}' class='btn btn-danger btn-sm' onclick='return confirm(\"Are you sure you want to delete this order?\");'>
+                                <i class='fas fa-trash-alt'></i> Delete
+                            </a>
+                        </td>
+                      </tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center mt-4">
+        <a href="index.php" class="btn btn-success"><i class="fas fa-home me-1"></i> Back to Home</a>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
 </html>

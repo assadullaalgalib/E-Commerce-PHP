@@ -12,8 +12,7 @@ include('cart.php');
 <title>E-Commerce</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<!-- <link rel="stylesheet" href="../css/style.css"/> -->
-<link rel="stylesheet" href="../CSS/card.css" />
+<link rel="stylesheet" href="CSS/card.css" />
 </head>
 <body>
 
@@ -83,7 +82,23 @@ include('cart.php');
     <div class="col-md-10">
       <div class="d-flex flex-wrap justify-content-start">
         <?php 
-        $products = get_products(); // Your existing function
+        $products = get_products();
+        if ($products) {
+            foreach ($products as $product) {
+                echo '
+                <div class="card product-card m-2">
+                    <img src="images/'.$product['image'].'" class="card-img-top" alt="'.$product['title'].'">
+                    <div class="card-body">
+                        <h5 class="card-title">'.$product['title'].'</h5>
+                        <p class="card-text">Price: ৳'.$product['price'].'</p>
+                        <a href="cart.php?add='.$product['id'].'" class="btn btn-primary w-100">Add to Cart</a>
+                    </div>
+                </div>
+                ';
+            }
+        } else {
+            echo "<p>No products found.</p>";
+        }
         ?>
       </div>
     </div>
