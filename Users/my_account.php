@@ -1,18 +1,18 @@
 <?php
 session_start();
-include('../Includes/connect.php'); // Database connection
+include('../Includes/connect.php');
 
+// Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../users/login.php");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
+$role = $_SESSION['role'] ?? 'user'; // 'admin' or 'user'
 
 // Fetch user data
-$sql = "SELECT username, email, contact, user_image 
-        FROM users 
-        WHERE user_id = ?";
+$sql = "SELECT username, email, contact, user_image FROM users WHERE user_id = ?";
 $stmt = $con->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -20,7 +20,6 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,29 +34,37 @@ $stmt->close();
     }
 </script>
 </head>
-<body>
+<body class="bg-light">
 
 <div class="container">
     <h2 class="text-center mt-4">My Profile</h2>
 
-    <div class="profile-card">
+    <div class="profile-card shadow-sm rounded">
         <img src="<?php 
-            if (!empty($user['user_image']) && file_exists(__DIR__ . '/../Images/' . $user['user_image'])) {
-                echo '../Images/' . htmlspecialchars($user['user_image']);
-            } else {
-                echo 'https://via.placeholder.com/150?text=Profile';
-            }
-        ?>" alt="Profile Image">
+            $image_path = '../Images/' . ($user['user_image'] ?? 'default_user.png');
+            echo file_exists($image_path) ? $image_path : '../Images/default_user.png';
+        ?>" alt="Profile Image" class="profile-img">
 
-        <h5><?php echo htmlspecialchars($user['username']); ?></h5>
-        <p>
+        <h5 class="username">
+            <a href="profile.php" class="text-decoration-none">
+                <?php echo htmlspecialchars($user['username']); ?>
+            </a>
+        </h5>
+
+        <p class="user-info">
             <strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?><br>
             <strong>Contact:</strong> <?php echo htmlspecialchars($user['contact']); ?>
         </p>
 
-        <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
-        <a href="delete_account.php" class="btn btn-danger" onclick="return confirmDelete();">Delete Account</a>
-        <a href="../index.php" class="btn btn-secondary"> Back to Home</a>
+        <div class="profile-actions">
+            <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
+            <a href="delete_account.php" class="btn btn-danger" onclick="return confirmDelete();">Delete Account</a>
+            <?php if($role === 'admin'): ?>
+                <a href="../admin/index.php" class="btn btn-secondary">Admin Dashboard</a>
+            <?php else: ?>
+                <a href="../index.php" class="btn btn-secondary">Back to Home</a>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 

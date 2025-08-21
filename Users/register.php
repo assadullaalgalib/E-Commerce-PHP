@@ -37,8 +37,14 @@ if (isset($_POST['register'])) {
 
             $stmt = mysqli_prepare($con, "INSERT INTO users (username, email, contact, user_image, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)");
             mysqli_stmt_bind_param($stmt, "ssssss", $username, $email, $contact, $image_path, $hashed_password, $role);
+            
             if (mysqli_stmt_execute($stmt)) {
-                echo "<script>alert('Registration successful! Please log in.'); window.location.href='login.php';</script>";
+                // Redirect based on who inserted the user
+                if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+                    header("Location: ../admin/list_users.php?msg=success");
+                } else {
+                    header("Location: login.php?msg=registered");
+                }
                 exit();
             } else {
                 $error = "Registration failed. Please try again.";

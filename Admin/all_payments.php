@@ -2,12 +2,12 @@
 session_start();
 include('../Includes/connect.php');
 
-// ✅ Check if logged in and role = admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header('Location: ../users/login.php');
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,10 +20,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
 <body class="bg-light">
 
 <div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-primary">All Payments</h2>
-
-    </div>
+    <h2 class="text-primary mb-4">All Payments</h2>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center align-middle">
@@ -49,8 +46,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             ";
             $result = mysqli_query($con, $query);
 
+            $grand_total = 0;
             while ($row = mysqli_fetch_assoc($result)) {
                 $total_price = $row['product_price'] * $row['quantity'];
+                $grand_total += $total_price;
+
                 echo "<tr>
                         <td>{$row['order_id']}</td>
                         <td>{$row['username']}</td>
@@ -66,11 +66,17 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                       </tr>";
             }
             ?>
+            <tr class="table-secondary">
+                <td colspan="5" class="text-end fw-bold">Grand Total</td>
+                <td colspan="2" class="fw-bold">৳<?php echo number_format($grand_total, 2); ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
+
     <div class="text-center mt-4">
         <a href="index.php" class="btn btn-success"><i class="fas fa-home me-1"></i> Back to Home</a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
