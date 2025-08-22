@@ -18,7 +18,7 @@ $id   = intval($_GET['id']);
 
 switch ($type) {
 
-    // ✅ Delete Brand
+    //  Delete Brand
     case 'brand':
         $check = $con->prepare("SELECT * FROM brands WHERE brand_id=?");
         $check->bind_param("i", $id);
@@ -37,7 +37,7 @@ switch ($type) {
         }
         break;
 
-    // ✅ Delete Category
+    //  Delete Category
     case 'category':
         $check = $con->prepare("SELECT * FROM categories WHERE category_id=?");
         $check->bind_param("i", $id);
@@ -56,7 +56,7 @@ switch ($type) {
         }
         break;
 
-    // ✅ Delete Product (with images)
+    //  Delete Product (with images)
     case 'product':
         $stmt = $con->prepare("SELECT product_image1, product_image2, product_image3 FROM products WHERE product_id=?");
         $stmt->bind_param("i", $id);
@@ -83,7 +83,7 @@ switch ($type) {
         }
         break;
 
-    // ✅ Delete User (with profile image)
+    //  Delete User (with profile image)
     case 'user':
         $stmt = $con->prepare("SELECT user_image FROM users WHERE user_id=?");
         $stmt->bind_param("i", $id);

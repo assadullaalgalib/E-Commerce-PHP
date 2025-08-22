@@ -1,7 +1,7 @@
 <?php
 session_start();
 include('Includes/connect.php');
-include('Functions/common_function.php'); // for esc()
+include('Functions/common_function.php'); 
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "Invalid product ID.";

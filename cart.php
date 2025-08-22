@@ -17,7 +17,7 @@ if (isset($_GET['add'])) {
         $_SESSION['cart'][$product_id] = 1;
     }
 
-    // ✅ Redirect back to previous page OR to cart_view.php
+    // Redirect back to previous page OR to cart_view.php
     header("Location: cart_view.php");
     exit();
 }
